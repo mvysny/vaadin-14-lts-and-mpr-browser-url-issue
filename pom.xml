@@ -13,6 +13,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <vaadin.version>14.2.1</vaadin.version>
+        <flow.plugin.version>2.2.1</flow.plugin.version>
+
+        <legacy.vaadin.version>7.7.17</legacy.vaadin.version>
+        <legacy.vaadin.gwt-dev.version>2.7.0.vaadin7</legacy.vaadin.gwt-dev.version>
+        <legacy.vaadin.plugin.version>${legacy.vaadin.version}</legacy.vaadin.plugin.version>
+        <widgetset.path>${project.build.outputDirectory}/VAADIN/widgetsets</widgetset.path>
+        <widgetset.name>referencempr.gwt.Widgetset</widgetset.name>
+        <theme.name>referencempr</theme.name>
+        <theme.path>src/main/resources/VAADIN/themes/${theme.name}</theme.path>
 
     </properties>
 
@@ -111,6 +120,52 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>mpr-v7</artifactId>
+        </dependency>
+
+        <!-- Legacy Vaadin -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+            <version>${legacy.vaadin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jsoup</groupId>
+                    <artifactId>jsoup</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.gwt</groupId>
+                    <artifactId>gwt-elemental</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client</artifactId>
+            <version>${legacy.vaadin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-themes</artifactId>
+            <version>${legacy.vaadin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>popupbutton</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
+        <!-- Additional Vaadin Dependencies -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
@@ -150,9 +205,40 @@
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
+                <version>${legacy.vaadin.plugin.version}</version>
+                <configuration>
+                    <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                    <draftCompile>false</draftCompile>
+                    <compileReport>false</compileReport>
+                    <style>OBF</style>
+                    <theme>${theme.name}</theme>
+                    <webappDirectory>${widgetset.path}</webappDirectory>
+                    <hostedWebapp>${widgetset.path}</hostedWebapp>
+                    <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                    <deploy>${project.build.directory}/gwt-deploy</deploy>
+                    <failOnError>true</failOnError>
+                </configuration>
                 <executions>
                     <execution>
+                        <goals>
+                            <goal>update-theme</goal>
+                            <goal>resources</goal>
+                            <!-- disable compile-theme to use on-the-fly
+                                theme compilation for dev -->
+                            <goal>compile-theme</goal>
+                            <goal>update-widgetset</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.vaadin</groupId>
+                <artifactId>flow-maven-plugin</artifactId>
+                <version>${flow.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
                         <goals>
                             <goal>prepare-frontend</goal>
                         </goals>
@@ -188,8 +274,8 @@
                     </plugin>
                     <plugin>
                         <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
+                        <artifactId>flow-maven-plugin</artifactId>
+                        <version>${flow.plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
