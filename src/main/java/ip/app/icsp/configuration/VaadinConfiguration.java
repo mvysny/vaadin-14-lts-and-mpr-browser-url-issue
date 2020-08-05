@@ -7,6 +7,8 @@
 package ip.app.icsp.configuration;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 /**
@@ -22,20 +24,20 @@ public class VaadinConfiguration {
     /**
      * Controller mapping configuration to be able to define a redirect to entry point when context root is used.
      */
-//    @Controller
-//    public static class ContextRootRedirectController {
-//
-//        /**
-//         * Perform redirect to portal entry point.
-//         *
-//         * @return redirect URL
-//         */
-//        @RequestMapping ( path = "/" )
-//        public String redirectToEntryPoint () {
-//            return "redirect:" + VAADIN_PATH;
-//        }
-//
-//    }
+    @Controller
+    public static class ContextRootRedirectController {
+
+        /**
+         * Perform redirect to portal entry point.
+         *
+         * @return redirect URL
+         */
+        @RequestMapping( path = "/" )
+        public String redirectToEntryPoint () {
+            return "redirect:" + VAADIN_PATH;
+        }
+
+    }
 
 
 }
