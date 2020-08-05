@@ -15,7 +15,7 @@ public class ClassifierSearchRoute extends Composite<Div> {
      * Constructor for the legacy route.
      */
     public ClassifierSearchRoute () {
-        this.getContent().add(new LegacyWrapper( new Label("Classifier Search Route")));
+        this.getContent().add(new LegacyWrapper( new Label("Classifier Search Route. V7 Label")));
     }
 
 }

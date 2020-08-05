@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ip.base</groupId>
+        <artifactId>ipb-base</artifactId>
+        <version>10</version>
+        <relativePath/>
+    </parent>
+
     <groupId>ip.app.icsp</groupId>
     <artifactId>reference-vaadin-14-lts</artifactId>
     <name>Reference Vaadin 14 LTS</name>
@@ -7,10 +15,18 @@
     <packaging>jar</packaging>
 
     <properties>
+        <ip.compiler.version.source>1.8</ip.compiler.version.source>
+        <ip.compiler.version.target>1.8</ip.compiler.version.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring.cloud.version>Hoxton.SR4</spring.cloud.version>
+        <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
+
+        <coreng.version>4.0.0-SNAPSHOT</coreng.version>
+        <coreng.theme.name>drillian</coreng.theme.name>
 
         <vaadin.version>14.2.1</vaadin.version>
         <flow.plugin.version>2.2.1</flow.plugin.version>
@@ -22,26 +38,27 @@
         <widgetset.name>referencempr.gwt.Widgetset</widgetset.name>
         <theme.name>referencempr</theme.name>
         <theme.path>src/main/resources/VAADIN/themes/${theme.name}</theme.path>
-
     </properties>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
-    </parent>
 
     <repositories>
         <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->
-
-        <!-- Main Maven repository -->
+        <!-- iPoint Maven Repository -->
         <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <id>iPoint Nexus</id>
+            <url>http://ip-nexus-p.rt.ipnt.de/nexus/content/groups/public/</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
+
+        <!-- Main Maven repository -->
+<!--        <repository>-->
+<!--            <id>central</id>-->
+<!--            <url>https://repo.maven.apache.org/maven2</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
         <!-- Repository used by many Vaadin add-ons -->
         <repository>
             <id>Vaadin Directory</id>
@@ -53,18 +70,44 @@
     </repositories>
 
     <pluginRepositories>
-        <!-- Main Maven repository -->
+        <!-- iPoint Maven Repository -->
         <pluginRepository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <id>iPoint Nexus</id>
+            <url>http://ip-nexus-p.rt.ipnt.de/nexus/content/groups/public/</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
+
+        <!-- Main Maven repository -->
+<!--        <pluginRepository>-->
+<!--            <id>central</id>-->
+<!--            <url>https://repo.maven.apache.org/maven2</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </pluginRepository>-->
     </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Vaadin BOM -->
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
@@ -76,6 +119,52 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Core NG -->
+        <dependency>
+            <groupId>ip.comp.web</groupId>
+            <artifactId>ipc-coreng-ui</artifactId>
+            <version>${coreng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ip.comp.web</groupId>
+            <artifactId>ipc-coreng-theme-base</artifactId>
+            <version>${coreng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ip.comp.web</groupId>
+            <artifactId>ipc-coreng-theme-${coreng.theme.name}</artifactId>
+            <version>${coreng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ip.comp.common</groupId>
+            <artifactId>ipc-coreng-boot</artifactId>
+            <version>${coreng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ip.comp.common</groupId>
+            <artifactId>ipc-coreng-cloud</artifactId>
+            <version>${coreng.version}</version>
+        </dependency>
+
+        <!-- Vaadin 14 -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
@@ -164,7 +253,7 @@
             <scope>provided</scope>
         </dependency>
 
-
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -189,6 +278,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
                 <!-- Clean build and startup time for Vaadin apps sometimes may exceed
                      the default Spring Boot's 30sec timeout.  -->
                 <configuration>
@@ -196,7 +286,6 @@
                     <maxAttempts>240</maxAttempts>
                 </configuration>
             </plugin>
-
             <!--
                 Take care of synchronizing java dependencies and imports in
                 package.json and main.js files.
