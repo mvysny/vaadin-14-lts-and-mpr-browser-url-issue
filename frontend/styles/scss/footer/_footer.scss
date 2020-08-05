@@ -1,0 +1,12 @@
+#application-layout_footer {
+  background-color: $footerColor;
+
+  &.dashboard {
+    border-top: 1px solid $footerDashboardBorderColor;
+    background-color: $contentAreaColor;
+  }
+
+  height: $footerHeight;
+  width: 100%;
+
+}

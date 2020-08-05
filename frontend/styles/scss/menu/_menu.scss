@@ -1,0 +1,31 @@
+#application-layout_menu {
+  //
+  //background-color: $mainMenuBackgroundColor;
+
+  height: $mainMenuHeightOpen + $subMenuHeight;
+  width: 100%;
+
+  #application-menu_main-menu {
+
+    background: #585858 url("assets/images/main_menu/MainMenu_Open_Background_Default.png") repeat-x top left;
+    height: $mainMenuHeightOpen;
+  }
+
+  #application-menu_sub-menu {
+    background: #585858 url("assets/images/sub_menu/03_00_iPoint/SubMenu_Background_Default.png") repeat-x top left;
+    height: $subMenuHeight;
+  }
+
+  &.collapsed{
+    height: $mainMenuHeightCollapsed + $subMenuHeight;
+
+    #application-menu_main-menu {
+        background: #585858 url("assets/images/main_menu/MainMenu_Closed_Background_Default.png") repeat-x top left;
+        height: $mainMenuHeightCollapsed;
+    }
+
+    #application-menu_sub-menu {
+
+    }
+  }
+}

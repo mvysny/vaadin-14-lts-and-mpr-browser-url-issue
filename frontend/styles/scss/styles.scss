@@ -1,0 +1,11 @@
+@import 'variables/variables';
+//@import 'variables/debug';
+@import 'header/header';
+@import 'menu/menu';
+@import 'content/content';
+@import 'footer/footer';
+
+#application-layout {
+  min-height: 900px;
+  min-width: 1280px;
+}

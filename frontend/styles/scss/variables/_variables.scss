@@ -1,0 +1,27 @@
+// Header variables
+$headerColor: #ffffff !default;
+$headerHeight: 48px;
+$headerSpacingLeft: 20px;
+$headerSpacingRight: $headerSpacingLeft;
+$headerAreaSpacing: 80px;
+$corporatePicturesColor: transparent !default;
+$userAreaColor: transparent !default;
+
+// Main and Sub-menu variables
+$mainMenuBackgroundColor: neon !default;
+$mainMenuHeightOpen: 64px;
+$mainMenuHeightCollapsed: 38px;
+$subMenuHeight: 38px;
+
+// Footer variables
+$footerDashboardBorderColor: #cccccc !default;
+$footerColor: #646464 !default;
+$footerHeight: 38px;
+
+// Content Area variables, must be after others since there are dependencies
+$contentAreaColor: #f5f5f5 !default;
+$contentAreaPadding: 20px;
+$contentAreaCollapsedHeight: calc(100vh - #{$headerHeight} - #{$mainMenuHeightCollapsed} - #{$subMenuHeight} - #{$footerHeight} - #{$contentAreaPadding} - #{$contentAreaPadding});
+$contentAreaHeight: calc(100vh - #{$headerHeight} - #{$mainMenuHeightOpen} - #{$subMenuHeight} - #{$footerHeight} - #{$contentAreaPadding} - #{$contentAreaPadding});
+$contentAreaWidth: calc(100vw - #{$contentAreaPadding} - #{$contentAreaPadding});
+

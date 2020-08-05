@@ -1,0 +1,15 @@
+#application-layout_content {
+  background-color: $contentAreaColor;
+
+  height: $contentAreaHeight;
+  padding: $contentAreaPadding;
+  width: $contentAreaWidth;
+
+  #application-layout_content-holder {
+    padding: $contentAreaPadding;
+  }
+
+  &.menu-collapsed{
+    height: $contentAreaCollapsedHeight;
+  }
+}
