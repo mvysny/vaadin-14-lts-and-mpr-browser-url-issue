@@ -6,12 +6,7 @@
  */
 package ip.app.icsp.configuration;
 
-import com.vaadin.flow.server.VaadinServlet;
-import ip.app.icsp.vaadinspring.CustomSpringServlet;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 /**
@@ -42,14 +37,5 @@ public class VaadinConfiguration {
 //
 //    }
 
-    /**
-     * Instantiates the Vaadin servlet.
-     *
-     * @return the {@link VaadinServlet} instance
-     */
-    @Bean
-    public VaadinServlet vaadinServlet () {
-        return new CustomSpringServlet();
-    }
 
 }

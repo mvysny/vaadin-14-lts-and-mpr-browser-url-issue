@@ -2,10 +2,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ip.base</groupId>
-        <artifactId>ipb-base</artifactId>
-        <version>10</version>
-        <relativePath/>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.0.RELEASE</version>
     </parent>
 
     <groupId>ip.app.icsp</groupId>
@@ -15,8 +14,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <ip.compiler.version.source>1.8</ip.compiler.version.source>
-        <ip.compiler.version.target>1.8</ip.compiler.version.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,9 +21,6 @@
 
         <spring.cloud.version>Hoxton.SR4</spring.cloud.version>
         <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
-
-        <coreng.version>4.0.0-SNAPSHOT</coreng.version>
-        <coreng.theme.name>drillian</coreng.theme.name>
 
         <vaadin.version>14.2.1</vaadin.version>
         <flow.plugin.version>2.2.1</flow.plugin.version>
@@ -42,23 +36,15 @@
 
     <repositories>
         <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->
-        <!-- iPoint Maven Repository -->
-        <repository>
-            <id>iPoint Nexus</id>
-            <url>http://ip-nexus-p.rt.ipnt.de/nexus/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
 
         <!-- Main Maven repository -->
-<!--        <repository>-->
-<!--            <id>central</id>-->
-<!--            <url>https://repo.maven.apache.org/maven2</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <!-- Repository used by many Vaadin add-ons -->
         <repository>
             <id>Vaadin Directory</id>
@@ -70,23 +56,14 @@
     </repositories>
 
     <pluginRepositories>
-        <!-- iPoint Maven Repository -->
+        <!-- Main Maven repository -->
         <pluginRepository>
-            <id>iPoint Nexus</id>
-            <url>http://ip-nexus-p.rt.ipnt.de/nexus/content/groups/public/</url>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-
-        <!-- Main Maven repository -->
-<!--        <pluginRepository>-->
-<!--            <id>central</id>-->
-<!--            <url>https://repo.maven.apache.org/maven2</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
     </pluginRepositories>
 
     <dependencyManagement>
@@ -121,10 +98,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
 
@@ -135,33 +108,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!-- Core NG -->
-        <dependency>
-            <groupId>ip.comp.web</groupId>
-            <artifactId>ipc-coreng-ui</artifactId>
-            <version>${coreng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ip.comp.web</groupId>
-            <artifactId>ipc-coreng-theme-base</artifactId>
-            <version>${coreng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ip.comp.web</groupId>
-            <artifactId>ipc-coreng-theme-${coreng.theme.name}</artifactId>
-            <version>${coreng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ip.comp.common</groupId>
-            <artifactId>ipc-coreng-boot</artifactId>
-            <version>${coreng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ip.comp.common</groupId>
-            <artifactId>ipc-coreng-cloud</artifactId>
-            <version>${coreng.version}</version>
         </dependency>
 
         <!-- Vaadin 14 -->
