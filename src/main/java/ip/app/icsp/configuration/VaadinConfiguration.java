@@ -6,9 +6,15 @@
  */
 package ip.app.icsp.configuration;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.Location;
+import com.vaadin.flow.server.ServiceInitEvent;
+import com.vaadin.flow.server.VaadinServiceInitListener;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -18,25 +24,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VaadinConfiguration {
 
     public static final String VAADIN_ROOT_ROUTE = "ui";
-    public static final String VAADIN_PATH = "/" + VAADIN_ROOT_ROUTE;
 
+    @Bean
+    public VaadinServiceInitListener contextRootRedirect () {
+        return new ContextRootRedirectListener();
+    }
 
     /**
      * Controller mapping configuration to be able to define a redirect to entry point when context root is used.
      */
-    @Controller
-    public static class ContextRootRedirectController {
+    public static class ContextRootRedirectListener implements VaadinServiceInitListener {
 
-        /**
-         * Perform redirect to portal entry point.
-         *
-         * @return redirect URL
-         */
-        @RequestMapping( path = "/" )
-        public String redirectToEntryPoint () {
-            return "redirect:" + VAADIN_PATH;
+        @Override
+        public void serviceInit(ServiceInitEvent event) {
+            event.getSource().addUIInitListener(uiEvent -> {
+                UI ui = uiEvent.getUI();
+                ui.addBeforeEnterListener(this::contextRootRedirectHandler);
+            });
         }
 
+        private void contextRootRedirectHandler(BeforeEnterEvent beforeEnterEvent) {
+            Location location = beforeEnterEvent.getLocation();
+            if (StringUtils.equals(location.getPath(), StringUtils.EMPTY)){
+                beforeEnterEvent.forwardTo(VAADIN_ROOT_ROUTE);
+            }
+        }
     }
 
 
