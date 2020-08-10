@@ -12,9 +12,10 @@ import com.vaadin.flow.router.Location;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -35,6 +36,8 @@ public class VaadinConfiguration {
      */
     public static class ContextRootRedirectListener implements VaadinServiceInitListener {
 
+        private static final Logger log = LoggerFactory.getLogger(ContextRootRedirectListener.class);
+
         @Override
         public void serviceInit(ServiceInitEvent event) {
             event.getSource().addUIInitListener(uiEvent -> {
@@ -45,6 +48,7 @@ public class VaadinConfiguration {
 
         private void contextRootRedirectHandler(BeforeEnterEvent beforeEnterEvent) {
             Location location = beforeEnterEvent.getLocation();
+            log.info("ContextRootRedirectListener: Current locations path value is: {}", location.getPath());
             if (StringUtils.equals(location.getPath(), StringUtils.EMPTY)){
                 beforeEnterEvent.forwardTo(VAADIN_ROOT_ROUTE);
             }

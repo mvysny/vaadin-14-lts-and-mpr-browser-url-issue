@@ -199,6 +199,8 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Common -->
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
