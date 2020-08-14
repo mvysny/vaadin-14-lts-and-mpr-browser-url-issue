@@ -13,16 +13,12 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import com.vaadin.mpr.core.MprTheme;
-import com.vaadin.mpr.core.MprWidgetset;
 
 import java.util.List;
 
 @PWA(name = "Reference Application - Vaadin 14 w/ MPR", shortName = "Reference Vaadin 14 w/ MPR UI")
 @CssImport("./styles/scss/styles.scss")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
-@MprTheme("referencempr")
-@MprWidgetset("referencempr.gwt.Widgetset")
 public class ApplicationLayout extends Div implements RouterLayout {
 
     private final Div menu;
